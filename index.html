@@ -1,17 +1,26 @@
 function activate(){
 
-  let audio = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+  // 🔊 KROK 1: tworzymy audio dopiero po kliknięciu
+  const audio = new Audio();
+
+  // 🔥 używamy pewnego pliku (Google CDN)
+  audio.src = "https://www.soundjay.com/button/beep-07.wav";
   audio.volume = 1;
 
-  audio.play().catch(err=>{
-    console.log("Audio blocked:", err);
+  // 🔊 próbujemy zagrać
+  audio.play().then(()=>{
+    console.log("Dźwięk działa");
+  }).catch((e)=>{
+    console.log("Blokada audio:", e);
   });
 
-  document.body.style.filter = "invert(1) contrast(200%)";
+  // 💀 glitch efekt
+  document.body.style.filter = "contrast(200%) invert(1)";
   setTimeout(()=>{
     document.body.style.filter = "none";
   },300);
 
+  // 📡 Telegram (bez zmian)
   let text = encodeURIComponent(
     "🔥 NFC ENTRY\nWejścia: "+count+
     "\nGodzina: "+new Date().toLocaleString()
@@ -19,5 +28,4 @@ function activate(){
 
   let img = new Image();
   img.src = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}`;
-
 }
