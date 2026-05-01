@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>NFC Portal</title>
+<style>
+body {
+  background:black;
+  color:red;
+  text-align:center;
+  font-family:monospace;
+  margin-top:20%;
+}
+button{
+  padding:20px;
+  font-size:20px;
+  background:red;
+  color:black;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>⚠ NFC PORTAL AKTYWOWANY ⚠</h1>
+<p>Kliknij aby aktywować...</p>
+
+<button onclick="start()">AKTYWUJ</button>
+
+<audio id="sound" src="https://www.soundjay.com/human/sounds/evil-laugh-01.mp3"></audio>
+
+<script>
+function start(){
+  document.getElementById("sound").play();
+  setTimeout(function(){
+    window.location.href="https://t.me/Kurefix01";
+  },3000);
+}
+</script>
+
+</body>
+</html>
