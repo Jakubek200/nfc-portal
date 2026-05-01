@@ -2,144 +2,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NFC GLITCH PORTAL</title>
-
+<title>NFC PORTAL</title>
 <style>
 body{
   margin:0;
   background:black;
   color:#00ff00;
   font-family:monospace;
-  overflow:hidden;
   text-align:center;
 }
-
 .glitch{
-  font-size:50px;
+  font-size:40px;
   margin-top:20%;
   animation:glitch 0.2s infinite;
 }
-
 @keyframes glitch{
-  0%{text-shadow:4px 0 red;}
-  50%{text-shadow:-4px 0 blue;}
-  100%{text-shadow:4px 0 red;}
+  0%{text-shadow:3px 0 red;}
+  50%{text-shadow:-3px 0 blue;}
+  100%{text-shadow:3px 0 red;}
 }
-
 button{
   padding:20px;
-  font-size:20px;
+  font-size:18px;
+  margin-top:40px;
   background:#00ff00;
-  color:black;
   border:none;
   cursor:pointer;
-  margin-top:40px;
-}
-
-#hacker{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:black;
-  color:#00ff00;
-  padding:20px;
-  text-align:left;
-}
-
-.counter{
-  position:fixed;
-  bottom:10px;
-  right:10px;
-  font-size:12px;
-  opacity:0.5;
 }
 </style>
 </head>
 
 <body>
 
-<div class="glitch">NFC PORTAL BREACHED</div>
-<button onclick="activate()">AKTYWUJ SYSTEM</button>
-
-<div id="hacker">
-<h1>HACKER MODE ACTIVATED</h1>
-<pre id="log"></pre>
-</div>
-
-<div class="counter">
-Wejścia: <span id="count"></span>
-</div>
+<div class="glitch">NFC SYSTEM ACTIVE</div>
+<button onclick="activate()">AKTYWUJ</button>
 
 <script>
 
-// 🔥 UZUPEŁNIJ TO:
-const BOT_TOKEN = "8514585237:AAHmyMvbCVz6xzH9WsTPAiSUNXw6Ncb5vxo";
-const CHAT_ID = "8514585237:AAHmyMvbCVz6xzH9WsTPAiSUNXw6Ncb5vxo";
+const BOT_TOKEN = "WSTAW_TOKEN";
+const CHAT_ID = "WSTAW_CHAT_ID";
 
-// 🔥 LICZNIK (localStorage)
-let visits = localStorage.getItem("visits");
-if(!visits){ visits = 0; }
-visits++;
-localStorage.setItem("visits", visits);
-document.getElementById("count").innerText = visits;
-
-// 🔥 POWIADOMIENIE DO TELEGRAM
-fetch(`https://api.telegram.org/bot${8514585237:AAHmyMvbCVz6xzH9WsTPAiSUNXw6Ncb5vxo}/sendMessage`,{
-  method:"POST",
-  headers:{"Content-Type":"application/json"},
-  body:JSON.stringify({
-    chat_id:CHAT_ID,
-    text:"🔥 Nowe wejście NFC Portal\nGodzina: "+new Date().toLocaleString()
-  })
-});
-
-// 🔥 DŹWIĘKI
-const sounds = [
-"https://www.soundjay.com/button/sounds/button-10.mp3",
-"https://www.soundjay.com/button/sounds/button-4.mp3",
-"https://www.soundjay.com/misc/sounds/fail-buzzer-02.mp3"
-];
+// licznik
+let count = localStorage.getItem("count") || 0;
+count++;
+localStorage.setItem("count", count);
 
 function activate(){
 
-  let randomSound = sounds[Math.floor(Math.random()*sounds.length)];
-  let audio = new Audio(randomSound);
+  let audio = new Audio("https://www.soundjay.com/button/sounds/button-10.mp3");
   audio.play();
 
-  document.getElementById("hacker").style.display="block";
+  let text = encodeURIComponent(
+    "🔥 Nowe wejście NFC\nWejścia: "+count+
+    "\nGodzina: "+new Date().toLocaleString()
+  );
 
-  let log = document.getElementById("log");
-  let text = `
-Establishing secure tunnel...
-Bypassing firewall...
-Injecting NFC payload...
-Access granted.
-System compromised.
-`;
-
-  let i = 0;
-  let interval = setInterval(()=>{
-    log.textContent += text[i];
-    i++;
-    if(i >= text.length){
-      clearInterval(interval);
-    }
-  },40);
+  // TWORZYMY NIEWIDZIALNY OBRAZ (to omija blokadę)
+  let img = new Image();
+  img.src = `https://api.telegram.org/bot${8514585237:AAHmyMvbCVz6xzH9WsTPAiSUNXw6Ncb5vxo}/sendMessage?chat_id=${CHAT_ID}&text=${złapana osoba włam na konta bankowe gmail hasło jest jusz na twoim gmail }`;
 
 }
-
-// 🔥 UKRYTY TRYB HACKER (wpisz: hack)
-let secret="";
-document.addEventListener("keydown",(e)=>{
-  secret+=e.key;
-  if(secret.includes("hack")){
-    document.body.style.background="black";
-    document.body.innerHTML="<h1 style='color:red;text-align:center;margin-top:20%'>⚠ FULL ACCESS GRANTED ⚠</h1>";
-  }
-});
 
 </script>
 
